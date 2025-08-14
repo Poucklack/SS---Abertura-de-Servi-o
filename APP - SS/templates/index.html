@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abertura de Serviço</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #e0f7ff, #f7f9fc);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 50px;
+        }
+
+        .card-form {
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        h2 {
+            color: #004085;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        .user-box {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            background: #004085;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-logout {
+            background: #dc3545;
+            border: none;
+            border-radius: 10px;
+            padding: 5px 10px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .btn-logout:hover {
+            background: #b02a37;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .form-control {
+            border-radius: 12px;
+            border: 1px solid #ced4da;
+            padding: 12px 15px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #004085;
+            box-shadow: 0 0 8px rgba(0, 64, 133, 0.3);
+        }
+
+        textarea.form-control {
+            resize: none;
+        }
+
+        .btn-primary {
+            background: #004085;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 25px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #003366;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 25px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .d-flex-gap {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card-form">
+        <div class="user-box">
+            {{ session.get('usuario', 'Usuário') }}
+            <a href="{{ url_for('logout') }}" class="btn btn-logout btn-sm">Sair</a>
+        </div>
+
+        <h2>Abertura de Serviço</h2>
+
+        <form action="{{ url_for('abrir_servico') }}" method="POST">
+            <div class="mb-3">
+                <label class="form-label">Setor</label>
+                <input type="text" name="setor" class="form-control" placeholder="Informe o setor" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Descrição do Problema</label>
+                <textarea name="descricao" class="form-control" placeholder="Descreva o problema" rows="4" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Solicitante</label>
+                <input type="text" name="solicitante" class="form-control" placeholder="Seu nome" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Prioridade</label>
+                <select name="prioridade" class="form-control" required>
+                    <option value="" disabled selected>Selecione a prioridade</option>
+                    <option value="Alta">Alta</option>
+                    <option value="Média">Média</option>
+                    <option value="Baixa">Baixa</option>
+                </select>
+            </div>
+            <div class="d-flex-gap">
+                <button type="submit" class="btn btn-primary w-100">Abrir Serviço</button>
+                <a href="{{ url_for('lista_servicos') }}" class="btn btn-secondary w-100">Ver Lista</a>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

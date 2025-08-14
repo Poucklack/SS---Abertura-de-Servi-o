@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Serviço - Assa Abloy</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #e0f0ff, #f7f9fc);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card-form {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 15px;
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    h2 {
+      color: #004085;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .form-label {
+      font-weight: 500;
+      color: #495057;
+    }
+
+    .form-control {
+      border-radius: 10px;
+      padding: 12px 15px;
+      border: 1px solid #ced4da;
+    }
+
+    textarea.form-control {
+      resize: none;
+    }
+
+    .btn-primary {
+      background: #004085;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 25px;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      background: #003066;
+    }
+
+    .btn-secondary {
+      background: #6c757d;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 25px;
+      font-weight: 600;
+    }
+
+    .btn-secondary:hover {
+      background: #5a6268;
+    }
+
+    .d-flex-gap {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card-form">
+    <h2>Editar Serviço</h2>
+    <form action="{{ url_for('atualizar_servico', id=servico['ID']) }}" method="POST">
+      <div class="mb-3">
+        <label class="form-label">Setor</label>
+        <input type="text" name="setor" class="form-control" value="{{ servico['Setor'] }}" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Descrição do Problema</label>
+        <textarea name="descricao" class="form-control" rows="4" required>{{ servico['Descrição'] }}</textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Solicitante</label>
+        <input type="text" name="solicitante" class="form-control" value="{{ servico['Solicitante'] }}" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Prioridade</label>
+        <select name="prioridade" class="form-control" required>
+          <option value="Alta" {% if servico['Prioridade']=='Alta' %}selected{% endif %}>Alta</option>
+          <option value="Média" {% if servico['Prioridade']=='Média' %}selected{% endif %}>Média</option>
+          <option value="Baixa" {% if servico['Prioridade']=='Baixa' %}selected{% endif %}>Baixa</option>
+        </select>
+      </div>
+      <div class="d-flex-gap">
+        <button type="submit" class="btn btn-primary w-100">Salvar Alterações</button>
+        <a href="{{ url_for('lista_servicos') }}" class="btn btn-secondary w-100">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>
